@@ -1,21 +1,30 @@
 import React from 'react';
-import './ListaFuncionarios.css';
+import {
+  Paper,
+  Typography,
+  List,
+  ListItem,
+  ListItemText
+} from '@mui/material';
 
-function ListaFuncionarios({ funcionarios }) {
+const ListaFuncionarios = ({ funcionarios }) => {
   return (
-    <div className="lista-container">
-      <h2>Funcionários Cadastrados</h2>
-      <ul>
+    <Paper elevation={2} sx={{ p: 3, mt: 4 }}>
+      <Typography variant="h6" gutterBottom>
+        Funcionários Cadastrados
+      </Typography>
+      <List>
         {funcionarios.map((func, index) => (
-          <li key={index}>
-            <strong>{func.nome}</strong> - R$ {func.salario.toFixed(2)} / mês | Jornada: {func.jornada}h
-            <br />
-            💰 Custo por hora: R$ {func.custoHora.toFixed(2)} | minuto: R$ {func.custoMinuto.toFixed(2)} | segundo: R$ {func.custoSegundo.toFixed(4)}
-          </li>
+          <ListItem key={index} divider>
+            <ListItemText
+              primary={func.nome}
+              secondary={`Salário: R$ ${func.salario.toFixed(2)} | Jornada: ${func.jornada}h/mês | Custo/min: R$ ${(func.salario / (func.jornada * 60)).toFixed(4)}`}
+            />
+          </ListItem>
         ))}
-      </ul>
-    </div>
+      </List>
+    </Paper>
   );
-}
+};
 
 export default ListaFuncionarios;
