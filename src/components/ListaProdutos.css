@@ -1,0 +1,43 @@
+.lista-produtos {
+  margin-top: 40px;
+  background-color: #fefefe;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.05);
+}
+
+.lista-produtos h2 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.produto {
+  background-color: #f9f9f9;
+  border-left: 4px solid #4F46E5;
+  margin-bottom: 20px;
+  padding: 15px;
+  border-radius: 6px;
+}
+
+.produto h3 {
+  margin-top: 0;
+  color: #222;
+}
+
+.produto ul {
+  padding-left: 20px;
+  margin: 10px 0;
+}
+
+.produto li {
+  margin-bottom: 5px;
+  font-size: 14px;
+  color: #555;
+}
+
+.tempo-total {
+  font-weight: bold;
+  margin-top: 10px;
+  color: #111;
+}
