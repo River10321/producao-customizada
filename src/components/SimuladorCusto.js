@@ -1,5 +1,15 @@
 import React, { useState } from 'react';
-import './SimuladorCusto.css';
+import {
+  Paper,
+  Typography,
+  Box,
+  Grid,
+  MenuItem,
+  Select,
+  Button,
+  FormControl,
+  InputLabel
+} from '@mui/material';
 
 function SimuladorCusto({ produtos, funcionarios }) {
   const [produtoSelecionado, setProdutoSelecionado] = useState('');
@@ -17,7 +27,7 @@ function SimuladorCusto({ produtos, funcionarios }) {
 
     const tempoTotalMin = produto.processos.reduce((total, proc) => {
       return total + (proc.min * 60 + proc.seg);
-    }, 0) / 60; // convertendo para minutos
+    }, 0) / 60;
 
     const custoMinuto = funcionario.salario / (funcionario.jornada * 60);
     const custoTotal = tempoTotalMin * custoMinuto;
@@ -26,32 +36,55 @@ function SimuladorCusto({ produtos, funcionarios }) {
   };
 
   return (
-    <div className="simulador-container">
-      <h2>Simular Custo de Produção</h2>
+    <Paper elevation={3} sx={{ p: 3, mt: 4 }}>
+      <Typography variant="h6" gutterBottom>
+        Simular Custo de Produção
+      </Typography>
+      <Box>
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={6}>
+            <FormControl fullWidth>
+              <InputLabel>Produto</InputLabel>
+              <Select
+                value={produtoSelecionado}
+                label="Produto"
+                onChange={(e) => setProdutoSelecionado(e.target.value)}
+              >
+                {produtos.map((p, index) => (
+                  <MenuItem key={index} value={p.nome}>{p.nome}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <FormControl fullWidth>
+              <InputLabel>Funcionário</InputLabel>
+              <Select
+                value={funcionarioSelecionado}
+                label="Funcionário"
+                onChange={(e) => setFuncionarioSelecionado(e.target.value)}
+              >
+                {funcionarios.map((f, index) => (
+                  <MenuItem key={index} value={f.nome}>{f.nome}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={12}>
+            <Button variant="contained" color="primary" onClick={calcular}>
+              Calcular
+            </Button>
+          </Grid>
+        </Grid>
 
-      <select value={produtoSelecionado} onChange={e => setProdutoSelecionado(e.target.value)}>
-        <option value="">Selecione um produto</option>
-        {produtos.map((p, index) => (
-          <option key={index} value={p.nome}>{p.nome}</option>
-        ))}
-      </select>
-
-      <select value={funcionarioSelecionado} onChange={e => setFuncionarioSelecionado(e.target.value)}>
-        <option value="">Selecione um funcionário</option>
-        {funcionarios.map((f, index) => (
-          <option key={index} value={f.nome}>{f.nome}</option>
-        ))}
-      </select>
-
-      <button onClick={calcular}>Calcular</button>
-
-      {resultado && (
-        <div className="resultado">
-          <p><strong>Tempo total:</strong> {resultado.tempoTotalMin.toFixed(2)} min</p>
-          <p><strong>Custo total:</strong> R$ {resultado.custoTotal.toFixed(2)}</p>
-        </div>
-      )}
-    </div>
+        {resultado && (
+          <Box mt={3}>
+            <Typography><strong>Tempo total:</strong> {resultado.tempoTotalMin.toFixed(2)} min</Typography>
+            <Typography><strong>Custo total:</strong> R$ {resultado.custoTotal.toFixed(2)}</Typography>
+          </Box>
+        )}
+      </Box>
+    </Paper>
   );
 }
 
