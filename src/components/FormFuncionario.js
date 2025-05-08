@@ -1,72 +1,69 @@
 import React, { useState } from 'react';
-import './FormFuncionario.css';
+import {
+  Box,
+  Button,
+  Grid,
+  Paper,
+  TextField,
+  Typography
+} from '@mui/material';
 
-function FormFuncionario() {
+const FormFuncionario = ({ onAdd }) => {
   const [nome, setNome] = useState('');
   const [salario, setSalario] = useState('');
   const [jornada, setJornada] = useState('');
-  const [resultados, setResultados] = useState(null);
 
-  const calcularCustos = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const salarioFloat = parseFloat(salario);
-    const jornadaFloat = parseFloat(jornada);
-
-    if (isNaN(salarioFloat) || isNaN(jornadaFloat) || jornadaFloat === 0) {
-      alert('Preencha corretamente o salário e a jornada!');
-      return;
-    }
-
-    const horasPorMes = jornadaFloat;
-    const minutosPorMes = horasPorMes * 60;
-    const segundosPorMes = minutosPorMes * 60;
-
-    const custoHora = salarioFloat / horasPorMes;
-    const custoMinuto = salarioFloat / minutosPorMes;
-    const custoSegundo = salarioFloat / segundosPorMes;
-
-    setResultados({
-      custoHora,
-      custoMinuto,
-      custoSegundo,
-    });
+    if (!nome || !salario || !jornada) return;
+    onAdd({ nome, salario: parseFloat(salario), jornada: parseFloat(jornada) });
+    setNome('');
+    setSalario('');
+    setJornada('');
   };
 
   return (
-    <div className="funcionario-container">
-      <h2>Cadastrar Funcionário</h2>
-      <form onSubmit={calcularCustos}>
-        <input
-          type="text"
-          placeholder="Nome do funcionário"
-          value={nome}
-          onChange={(e) => setNome(e.target.value)}
-        />
-        <input
-          type="number"
-          placeholder="Salário mensal (R$)"
-          value={salario}
-          onChange={(e) => setSalario(e.target.value)}
-        />
-        <input
-          type="number"
-          placeholder="Jornada (horas/mês)"
-          value={jornada}
-          onChange={(e) => setJornada(e.target.value)}
-        />
-        <button type="submit">Calcular</button>
-      </form>
-
-      {resultados && (
-        <div className="resultado">
-          <p><strong>Funcionário:</strong> {nome}</p>
-          <p><strong>Custo por hora:</strong> R$ {resultados.custoHora.toFixed(2)}</p>
-          <p><strong>Custo por minuto:</strong> R$ {resultados.custoMinuto.toFixed(4)}</p>
-          <p><strong>Custo por segundo:</strong> R$ {resultados.custoSegundo.toFixed(6)}</p>
-        </div>
-      )}
-    </div>
+    <Paper elevation={3} sx={{ p: 3, mt: 3 }}>
+      <Typography variant="h6" gutterBottom>
+        Cadastrar Funcionário
+      </Typography>
+      <Box component="form" onSubmit={handleSubmit}>
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={4}>
+            <TextField
+              fullWidth
+              label="Nome do funcionário"
+              value={nome}
+              onChange={(e) => setNome(e.target.value)}
+            />
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            <TextField
+              fullWidth
+              type="number"
+              label="Salário mensal (R$)"
+              value={salario}
+              onChange={(e) => setSalario(e.target.value)}
+            />
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            <TextField
+              fullWidth
+              type="number"
+              label="Jornada (horas/mês)"
+              value={jornada}
+              onChange={(e) => setJornada(e.target.value)}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Button variant="contained" color="primary" type="submit">
+              Calcular
+            </Button>
+          </Grid>
+        </Grid>
+      </Box>
+    </Paper>
   );
-}
+};
 
 export default FormFuncionario;
