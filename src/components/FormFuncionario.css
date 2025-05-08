@@ -1,0 +1,35 @@
+.funcionario-container {
+  background-color: #f4f4f4;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 600px;
+  margin: 20px auto;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+}
+
+.funcionario-container h2 {
+  margin-bottom: 15px;
+}
+
+.funcionario-container input {
+  margin: 5px;
+  padding: 10px;
+  width: calc(50% - 22px);
+  box-sizing: border-box;
+}
+
+.funcionario-container button {
+  padding: 10px 20px;
+  margin-top: 10px;
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.funcionario-container .resultado {
+  margin-top: 20px;
+  background: white;
+  padding: 15px;
+  border-radius: 5px;
+}
