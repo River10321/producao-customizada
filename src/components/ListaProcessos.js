@@ -1,24 +1,28 @@
-// src/components/ListaProcessos.js
 import React from 'react';
-import './ListaProcessos.css';
+import { Paper, Typography, List, ListItem, ListItemText } from '@mui/material';
 
-function ListaProcessos({ processos }) {
+const ListaFuncionarios = ({ funcionarios }) => {
   return (
-    <div className="lista-processos">
-      <h3>Lista de Processos Cadastrados</h3>
-      {processos.length === 0 ? (
-        <p>Nenhum processo cadastrado.</p>
+    <Paper elevation={2} sx={{ p: 3, mt: 4 }}>
+      <Typography variant="h6" gutterBottom>
+        Funcionários Cadastrados
+      </Typography>
+      {funcionarios.length === 0 ? (
+        <Typography>Nenhum funcionário cadastrado.</Typography>
       ) : (
-        <ul>
-          {processos.map((proc, index) => (
-            <li key={index}>
-              <strong>{proc.nome}</strong> - {proc.min} min, {proc.seg} seg - Máquina: {proc.maquina} - Produto: {proc.produto}
-            </li>
+        <List>
+          {funcionarios.map((f, index) => (
+            <ListItem key={index} divider>
+              <ListItemText
+                primary={`${f.nome} - R$ ${f.salario.toFixed(2)} | ${f.jornada}h/mês`}
+                secondary={`Custo por min: R$ ${(f.salario / (f.jornada * 60)).toFixed(4)} | por seg: R$ ${(f.salario / (f.jornada * 60 * 60)).toFixed(6)}`}
+              />
+            </ListItem>
           ))}
-        </ul>
+        </List>
       )}
-    </div>
+    </Paper>
   );
-}
+};
 
-export default ListaProcessos;
+export default ListaFuncionarios;
