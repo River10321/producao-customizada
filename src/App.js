@@ -5,6 +5,7 @@ import FormProduto from './components/FormProduto';
 import ListaProcessos from './components/ListaProcessos';
 import ListaFuncionarios from './components/ListaFuncionarios';
 import ListaProdutos from './components/ListaProdutos';
+import SimuladorCusto from './components/SimuladorCusto';
 
 function App() {
   const [processos, setProcessos] = useState([]);
@@ -34,6 +35,7 @@ function App() {
       <ListaFuncionarios funcionarios={funcionarios} />
       <FormProduto onAdd={adicionarProduto} />
       <ListaProdutos produtos={produtos} />
+      <SimuladorCusto produtos={produtos} funcionarios={funcionarios} />
     </div>
   );
 }
