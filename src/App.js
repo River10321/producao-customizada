@@ -4,10 +4,12 @@ import FormFuncionario from './components/FormFuncionario';
 import FormProduto from './components/FormProduto';
 import ListaProcessos from './components/ListaProcessos';
 import ListaFuncionarios from './components/ListaFuncionarios';
+import ListaProdutos from './components/ListaProdutos';
 
 function App() {
   const [processos, setProcessos] = useState([]);
   const [funcionarios, setFuncionarios] = useState([]);
+  const [produtos, setProdutos] = useState([]);
 
   const adicionarProcesso = (novo) => {
     const tempo = novo.tempo;
@@ -20,13 +22,18 @@ function App() {
     setFuncionarios([...funcionarios, f]);
   };
 
+  const adicionarProduto = (p) => {
+    setProdutos([...produtos, p]);
+  };
+
   return (
     <div className="App">
       <FormProcesso onAdd={adicionarProcesso} />
       <ListaProcessos processos={processos} />
       <FormFuncionario onAdd={adicionarFuncionario} />
       <ListaFuncionarios funcionarios={funcionarios} />
-      <FormProduto />
+      <FormProduto onAdd={adicionarProduto} />
+      <ListaProdutos produtos={produtos} />
     </div>
   );
 }
